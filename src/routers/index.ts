@@ -24,13 +24,13 @@ import Home from "@/views/Home";
 const modules = import.meta.glob("../views/**/index.tsx");
 // console.log(modules)
 // const map = {}
-for (const path in modules) {
-  console.log(path);
-  // modules[path]().then((mod) => {
-  //   console.log(path, mod)
+// for (const path in modules) {
+//   console.log(path);
+//   // modules[path]().then((mod) => {
+//   //   console.log(path, mod)
 
-  // })
-}
+//   // })
+// }
 // console.log(map)
 const routes = [
   { path: "/home", Component: Home },
@@ -91,6 +91,6 @@ const filterRouters = (arr: any) => {
 };
 
 const routerArr = filterRouters(routersLibrary);
-console.log(routerArr);
+
 routes.push(...routerArr);
 export const router = createBrowserRouter(routes);
