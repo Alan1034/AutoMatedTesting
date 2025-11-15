@@ -2,12 +2,13 @@
 import { useState } from 'react';
 import { RGeneralBasicForm, RBasicForm } from 'general-basic-form';
 import { Button } from "@/components/ui/button"
+import { text } from 'stream/consumers';
 const Form = () => {
   const fieldClassName = 'col-start-2 col-span-4 mb-8';
   const formItem = [
 
     {
-      label: "款式名称",
+      label: "普通输入框",
       prop: "bsName",
       type: "input",
       legend: '这是一个可选的标题',
@@ -35,15 +36,43 @@ const Form = () => {
         },
       ],
       separator: true, //分割线
-
-      //template: {
-      //  suffix: () => {
-      //    return <svg-icon icon-class="baifenbi" />;
-      //  },
-      //},
     },
     {
-      label: '天数-价格配置',
+      label: "复杂输入框",
+      prop: "input-group",
+      type: "input-group",
+      setting: {
+        placeholder: '请输入手机验证码',
+        // style: 'width: 100%',
+        addons: [
+          {
+            text: '前缀，一般和type: input 配合使用',
+            align: "inline-start",
+            render: (props) => {
+              return (
+                <div className="flex items-center">
+                  <span>{props}</span>
+                </div>
+              );
+            },
+          },
+          {
+            text: '后缀，一般和type: input 配合使用',
+            align: "inline-end"
+          },
+          // {
+          //   text: '底部盒子，一般和type: 'textarea'配合使用',
+          //   align: "block-end"
+          // },
+        ],
+        // type: 'textarea',//input|textarea
+      },
+      fieldSetting: {
+        className: fieldClassName,
+      },
+    },
+    {
+      label: '多维数组',
       prop: 'prices',
       type: 'form-list',
       description: [
@@ -53,7 +82,7 @@ const Form = () => {
       separator: "text", //文字分割线
       setting: {
         heading: true, //是否显示标题
-        dim: 3, // 多维数组，注意要和columns的长度相等，输出为对象数组
+        dim: 4, // 多维数组，注意要和columns的长度相等，输出为对象数组
         columns: [
           {
             prop: 'id',
@@ -89,6 +118,24 @@ const Form = () => {
               className: 'w-full',
             },
           },
+
+          {
+            label: '组合分类-多选',
+            prop: 'expense_multiple_checkbox_test',
+            type: 'combobox',
+            setting: {
+              placeholder: '请选择等级',
+              type: 'checkbox-list',
+            },
+            fieldSetting: {
+              className: fieldClassName,
+            },
+            option: [
+              { label: 'Yysyayayasuydsaiewqnkerwjrklwjlwerjwlejrlj3', value: 'Y3' },
+              { label: 'Yysyayayasuydsaiewqnkerwjrklwjlwerjwlejrlj4', value: 'Y4' },
+
+            ],
+          },
         ],
       },
       fieldSetting: {
@@ -115,7 +162,7 @@ const Form = () => {
       },
     },
     {
-      label: '护士在线增值服务内容',
+      label: '1维数组',
       prop: 'nursingCare',
       type: 'form-list',
       setting: {
@@ -143,7 +190,7 @@ const Form = () => {
     },
     {
       prop: 'level1',
-      label: '等级',
+      label: '选择框',
       type: 'select',
       option: [
         { label: 'Y3', value: 'Y3' },
@@ -153,49 +200,48 @@ const Form = () => {
       setting: {
         placeholder: '请选择等级',
         required: true,
-        multiple: true,
       },
       fieldSetting: {
         className: fieldClassName,
       },
     },
-    {
-      label: "创建时间",
-      prop: "create_time",
-      type: "date-picker",
-      setting: {
-        "range-separator": "至",
-      },
-      fieldSetting: {
-        className: fieldClassName,
-      },
-    },
+    // {
+    //   label: "创建时间",
+    //   prop: "create_time",
+    //   type: "date-picker",
+    //   setting: {
+    //     "range-separator": "至",
+    //   },
+    //   fieldSetting: {
+    //     className: fieldClassName,
+    //   },
+    // },
 
-    {
-      label: '是否必填',
-      prop: 'is_optional',
-      type: 'radio',
-      setting: {
-        disabled: true
-      },
-      option: [
-        { value: '是', label: 'true', border: true },
-        { value: '否', label: 'false' }
-      ],
-      fieldSetting: {
-        className: fieldClassName,
-      },
-      rules: [
-        {
-          required: true,
-          message: '请输入标签项名称',
-          trigger: 'blur'
-        }
-      ]
-    },
+    // {
+    //   label: '是否必填',
+    //   prop: 'is_optional',
+    //   type: 'radio',
+    //   setting: {
+    //     disabled: true
+    //   },
+    //   option: [
+    //     { value: '是', label: 'true', border: true },
+    //     { value: '否', label: 'false' }
+    //   ],
+    //   fieldSetting: {
+    //     className: fieldClassName,
+    //   },
+    //   rules: [
+    //     {
+    //       required: true,
+    //       message: '请输入标签项名称',
+    //       trigger: 'blur'
+    //     }
+    //   ]
+    // },
     {
       prop: 'level',
-      label: '多选',
+      label: '多选列表',
       legend: '标题',
       type: 'checkbox-list',
       gap: 3,
@@ -213,7 +259,7 @@ const Form = () => {
     },
     {
       prop: 'test1',
-      label: 'test1(多选)',
+      label: '选择框',
       type: 'checkbox',
       fieldSetting: {
         className: fieldClassName,
@@ -264,7 +310,24 @@ const Form = () => {
       ],
     },
     {
-      label: '分类',
+      label: '组合分类-多选',
+      prop: 'expense_multiple_checkbox',
+      type: 'combobox',
+      setting: {
+        placeholder: '请选择等级',
+        type: 'checkbox-list',
+      },
+      fieldSetting: {
+        className: fieldClassName,
+      },
+      option: [
+        { label: 'Y3', value: 'Y3' },
+        { label: 'Y4', value: 'Y4' },
+        { label: 'Y5', value: 'Y5' },
+      ],
+    },
+    {
+      label: '组合分类',
       prop: 'expense_category_id',
       type: 'combobox',
       setting: {
@@ -320,7 +383,6 @@ const Form = () => {
 
       <div className="w-1/2">
         <div className="flex min-h-svh flex-col items-center justify-center">
-          <Button  >Go to Form</Button>
           {JSON.stringify(formData)}
         </div>
 
