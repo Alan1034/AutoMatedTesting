@@ -36,6 +36,7 @@ const routes = [
   { path: "/home", Component: Home },
   { index: true, path: "/", Component: Home },
   // { path: '/:pathMatch(.*)*', name: 'NotFound', Component: NotFoundComponent }
+  // { path: '*?', name: 'NotFound', Component: NotFoundComponent }
 ];
 
 const filterRouters = (arr: any) => {
