@@ -72,6 +72,19 @@ const Form = () => {
       },
     },
     {
+      label: '',
+      prop: 'description',
+      type: 'description',
+      fieldSetting: {
+        className: fieldClassName,
+      },
+      description: [
+        'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+        '段落2',
+        'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+      ],
+    },
+    {
       label: '多维数组',
       prop: 'prices',
       type: 'form-list',
@@ -82,7 +95,7 @@ const Form = () => {
       separator: "text", //文字分割线
       setting: {
         heading: true, //是否显示标题
-        dim: 4, // 多维数组，注意要和columns的长度相等，输出为对象数组
+        dim: 5, // 多维数组，注意要和columns的长度相等，输出为对象数组
         itemWidth: 'mean',//itemWidth: 'auto' | 'mean' 自动宽度（满行） | 平均分配宽度
         columns: [
           {
@@ -119,7 +132,38 @@ const Form = () => {
               className: 'w-full',
             },
           },
-
+          {
+            label: '组合分类',
+            prop: 'expense_category_id',
+            type: 'combobox',
+            setting: {
+              placeholder: '请输入分类',
+            },
+            options: [
+              {
+                label: '指南',
+                value: '指南',
+                separator: true, //分割线
+                children: [
+                  {
+                    value: 'shejiyuanze',
+                    label: '设计原则',
+                    shortcut: 'ctrl+z', //选项右侧的内容
+                  },
+                ],
+              },
+              {
+                label: '资源',
+                value: 'resource',
+                children: [
+                  {
+                    value: 'axure',
+                    label: 'Axure Components',
+                  },
+                ],
+              },
+            ],
+          },
           {
             label: '组合分类-多选',
             prop: 'expense_multiple_checkbox_test',
@@ -127,9 +171,6 @@ const Form = () => {
             setting: {
               placeholder: '请选择等级',
               type: 'checkbox-list',
-            },
-            fieldSetting: {
-              className: fieldClassName,
             },
             option: [
               { label: 'Yysyayayasuydsaiewqnkerwjrklwjlwerjwlejrlj3', value: 'Y3' },
