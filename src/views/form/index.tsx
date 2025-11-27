@@ -16,6 +16,9 @@ const Form = () => {
         placeholder: '请输入手机验证码',
         // style: 'width: 100%',
         required: true,
+        // type: 'number',
+        // min: 1,
+        // max: 100,
       },
       fieldSetting: {
         className: fieldClassName,
@@ -36,6 +39,17 @@ const Form = () => {
         },
       ],
       separator: true, //分割线
+    },
+    {
+      label: "文本区域",
+      prop: "Textarea",
+      type: "textarea",
+      setting: {
+        placeholder: '请输入文本区域',
+      },
+      fieldSetting: {
+        className: fieldClassName,
+      }
     },
     {
       label: "复杂输入框",
@@ -97,6 +111,10 @@ const Form = () => {
         heading: true, //是否显示标题
         dim: 5, // 多维数组，注意要和columns的长度相等，输出为对象数组
         itemWidth: 'mean',//itemWidth: 'auto' | 'mean' 自动宽度（满行） | 平均分配宽度
+        onChange: (value) => {
+          console.log(value);
+          setDetail({ ...detail, prices: value })
+        },
         columns: [
           {
             prop: 'id',
@@ -247,6 +265,16 @@ const Form = () => {
         className: fieldClassName,
       },
     },
+    {
+      label: "开关",
+      prop: "switch_test",
+      type: "switch",
+      setting: {
+      },
+      fieldSetting: {
+        className: 'col-start-2 col-span-2 mb-8',
+      },
+    },
     // {
     //   label: "创建时间",
     //   prop: "create_time",
@@ -293,7 +321,7 @@ const Form = () => {
         { label: 'Y5', value: 'Y5' },
       ],
       fieldSetting: {
-        className: fieldClassName,
+        className: 'col-start-2 col-span-2 mb-8',
       },
       setting: {
         placeholder: '请选择等级',
@@ -304,7 +332,7 @@ const Form = () => {
       label: '选择框',
       type: 'checkbox',
       fieldSetting: {
-        className: fieldClassName,
+        className: 'col-start-4 col-span-2 mb-8',
       },
       setting: {
         placeholder: '请选择套餐',
@@ -404,8 +432,63 @@ const Form = () => {
         },
       ],
     },
+    {
+      label: '树形选择',
+      prop: 'select_tree',
+      type: 'combobox',
+      setting: {
+        placeholder: '请输入分类',
+        empty: '搜索内容为空的提示',
+        type: 'rc-tree',
+        // checkable: true,
+        // selectable: false
+      },
+      fieldSetting: {
+        className: fieldClassName,
+      },
+      options: [
+        {
+          label: '指南',
+          value: '指南',
+          children: [
+            {
+              value: 'shejiyuanze',
+              label: '设计原则',
+              setting: {
+                icon: () => {
+                  return <div>ID</div>
+                }
+              },
+              children: [
+                {
+                  value: 'leaf',
+                  label: '叶子节点',
+                  shortcut: 'ctrl+z', //选项右侧的内容
+                },
+                {
+                  value: 'leaf1',
+                  label: '叶子节点1',
+                  shortcut: 'ctrl+z', //选项右侧的内容
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: '资源',
+          value: 'resource',
+          children: [
+            {
+              value: 'axure',
+              label: 'Axure Components',
+            },
+          ],
+        },
+      ],
+    },
   ]
   const [formData, setFormData] = useState({})
+  const [detail, setDetail] = useState({})
   const getList = (params) => {
     console.log('params', params);
     setFormData(params)
@@ -418,7 +501,7 @@ const Form = () => {
           getList={getList}
           parametersType="data"
           noInputBlank
-          // formData={detail}
+          formData={detail}
           fieldGroupSetting={{ className: 'grid grid-cols-5 gap-4' }}
         > </RGeneralBasicForm>
       </div>
