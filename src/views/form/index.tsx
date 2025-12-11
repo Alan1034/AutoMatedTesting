@@ -1,6 +1,6 @@
 
-import { useState } from 'react';
-import { RGeneralBasicForm, RBasicForm } from 'general-basic-form';
+import { useState, useRef } from 'react';
+import { RGeneralBasicForm, RBasicForm, RBaseCombobox } from 'general-basic-form';
 import { Button } from "@/components/ui/button"
 import { text } from 'stream/consumers';
 const Form = () => {
@@ -338,7 +338,18 @@ const Form = () => {
         placeholder: '请选择套餐',
       },
     },
+    //  enum ComTypes {
+    //     "command" = "command",
+    //     "rc-tree" = "rc-tree",
+    //     "ant-tree" = "ant-tree",
+    //     "checkbox-list" = "checkbox-list",
+    //   }
 
+    // enum ContainerTypes {
+    //   "Popover" = "Popover",
+    //   "Drawer" = "Drawer",
+    //   "Dialog" = "Dialog",
+    // }
     {
       label: "分类",
       prop: "分类",
@@ -423,12 +434,7 @@ const Form = () => {
         {
           label: '资源',
           value: 'resource',
-          children: [
-            {
-              value: 'axure',
-              label: 'Axure Components',
-            },
-          ],
+
         },
       ],
     },
@@ -439,10 +445,12 @@ const Form = () => {
       setting: {
         placeholder: '请输入分类',
         empty: '搜索内容为空的提示',
-        type: 'rc-tree',
+        type: 'ant-tree',
+        width: `300px`,//控制组件宽度
         // checkable: true,
         // selectable: false
       },
+      container: "Dialog",
       fieldSetting: {
         className: fieldClassName,
       },
@@ -489,8 +497,11 @@ const Form = () => {
   ]
   const [formData, setFormData] = useState({})
   const [detail, setDetail] = useState({})
+  const RGeneralBasicFormRef = useRef(null);
+  const RBaseComboboxRef = useRef(null);
   const getList = (params) => {
-    console.log('params', params);
+    console.log('queryParams', RBaseComboboxRef.current.queryParams);
+    console.log('formAction', RBaseComboboxRef.current.formAction());
     setFormData(params)
   }
   return (
@@ -498,12 +509,46 @@ const Form = () => {
       <div className="w-1/2">
         <RGeneralBasicForm
           formItem={formItem}
+          ref={RGeneralBasicFormRef}
           getList={getList}
           parametersType="data"
           noInputBlank
           formData={detail}
           fieldGroupSetting={{ className: 'grid grid-cols-5 gap-4' }}
         > </RGeneralBasicForm>
+        <RBaseCombobox
+          onFormChange={(params) => {
+            console.log('queryParams', params);
+          }}
+          ref={RBaseComboboxRef}
+          value='resource'
+          item={{
+            options: [
+              {
+                label: '指南',
+                value: '指南',
+                separator: true, //分割线
+                children: [
+                  {
+                    value: 'shejiyuanze',
+                    label: '设计原则',
+                    shortcut: 'ctrl+z', //选项右侧的内容
+                  },
+                ],
+              },
+              {
+                label: '资源',
+                value: 'resource',
+
+              },
+            ],
+            setting: {
+              placeholder: '请输入分类',
+              empty: '搜索内容为空的提示',
+            },
+            container: 'Dialog',
+          }}
+        />
       </div>
 
       <div className="w-1/2">
