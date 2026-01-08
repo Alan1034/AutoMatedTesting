@@ -205,6 +205,10 @@ const Form = () => {
         {
           validator: (rule, value, callback) => {
             console.log(value);
+            if (!value) {
+              callback();
+              return;
+            }
             for (let i = 0; i < value.length; i++) {
               const element = value[i];
               if (!Number(element.days)) {
@@ -236,6 +240,10 @@ const Form = () => {
       rules: [
         {
           validator: (rule, value, callback) => {
+            if (!value) {
+              callback();
+              return;
+            }
             for (let i = 0; i < value.length; i++) {
               const element = value[i];
               if (!element) {
@@ -275,17 +283,24 @@ const Form = () => {
         className: 'col-start-2 col-span-2 mb-8',
       },
     },
-    // {
-    //   label: "创建时间",
-    //   prop: "create_time",
-    //   type: "date-picker",
-    //   setting: {
-    //     "range-separator": "至",
-    //   },
-    //   fieldSetting: {
-    //     className: fieldClassName,
-    //   },
-    // },
+    {
+      label: "创建时间",
+      prop: "create_time",
+      type: "date-picker",
+      setting: {
+        placeholder: '请选择创建时间',
+      },
+      dataPickerType: "month",//day|month
+      fieldSetting: {
+        className: fieldClassName,
+      },
+      // rules: [
+      //   {
+      //     message: "请输入信息",
+      //     required: true,
+      //   }
+      // ],
+    },
 
     // {
     //   label: '是否必填',
