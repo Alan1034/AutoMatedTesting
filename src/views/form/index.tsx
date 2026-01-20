@@ -1,6 +1,6 @@
 
 import { useState, useRef } from 'react';
-import { RGeneralBasicForm, RBasicForm, RBaseCombobox } from 'general-basic-form';
+import { RGeneralBasicForm, RBasicForm, RBaseCombobox, RBaseDatePicker } from 'general-basic-form';
 import { Button } from "@/components/ui/button"
 import { text } from 'stream/consumers';
 const Form = () => {
@@ -521,7 +521,7 @@ const Form = () => {
   }
   return (
     <div className="flex justify-center items-center w-full">
-      <div className="w-1/2">
+      <div className="w-1/2 flex flex-col gap-3 p-8">
         <RGeneralBasicForm
           formItem={formItem}
           ref={RGeneralBasicFormRef}
@@ -562,6 +562,19 @@ const Form = () => {
               empty: '搜索内容为空的提示',
             },
             container: 'Dialog',
+          }}
+        />
+        <RBaseDatePicker
+          onFormChange={(params) => {
+            console.log('queryParams', params);
+          }}
+          // ref={RBaseComboboxRef}
+          value={new Date()}
+          item={{
+            setting: {
+              placeholder: '请选择创建时间',
+            },
+            dataPickerType: "day",//day|month
           }}
         />
       </div>
