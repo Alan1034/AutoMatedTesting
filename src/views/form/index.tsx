@@ -1,6 +1,6 @@
 
 import { useState, useRef } from 'react';
-import { RGeneralBasicForm, RBasicForm, RBaseCombobox, RBaseDatePicker } from 'general-basic-form';
+import { RGeneralBasicForm, RBasicForm, RBaseCombobox, RBaseDatePicker, RGeneralBasic } from 'general-basic-form';
 import { Button } from "@/components/ui/button"
 import { text } from 'stream/consumers';
 const Form = () => {
@@ -140,7 +140,7 @@ const Form = () => {
             prop: 'serviceType',
             label: '服务类型',
             type: 'select',
-            option: [
+            options: [
               { label: '到家服务', value: 'home_service' },
               { label: '医院陪护', value: 'hospital_care' },
             ],
@@ -190,7 +190,7 @@ const Form = () => {
               placeholder: '请选择等级',
               type: 'checkbox-list',
             },
-            option: [
+            options: [
               { label: 'Yysyayayasuydsaiewqnkerwjrklwjlwerjwlejrlj3', value: 'Y3' },
               { label: 'Yysyayayasuydsaiewqnkerwjrklwjlwerjwlejrlj4', value: 'Y4' },
 
@@ -260,7 +260,7 @@ const Form = () => {
       prop: 'level1',
       label: '选择框',
       type: 'select',
-      option: [
+      options: [
         { label: 'Y3', value: 'Y3' },
         { label: 'Y4', value: 'Y4' },
         { label: 'Y5', value: 'Y5' },
@@ -289,6 +289,8 @@ const Form = () => {
       type: "date-picker",
       setting: {
         placeholder: '请选择创建时间',
+        // timeZone: "Asia/Shanghai",
+        // locale: ,
       },
       dataPickerType: "month",//day|month
       fieldSetting: {
@@ -309,7 +311,7 @@ const Form = () => {
     //   setting: {
     //     disabled: true
     //   },
-    //   option: [
+    //   options: [
     //     { value: '是', label: 'true', border: true },
     //     { value: '否', label: 'false' }
     //   ],
@@ -330,7 +332,7 @@ const Form = () => {
       legend: '标题',
       type: 'checkbox-list',
       gap: 3,
-      option: [
+      options: [
         { label: 'Y3', value: 'Y3' },
         { label: 'Y4', value: 'Y4' },
         { label: 'Y5', value: 'Y5' },
@@ -353,6 +355,49 @@ const Form = () => {
         placeholder: '请选择套餐',
       },
     },
+    {
+      prop: 'a-tree-select',
+      label: '树选择',
+      type: 'a-tree-select',
+      fieldSetting: {
+        className: 'col-start-4 col-span-2 mb-8',
+      },
+      setting: {
+        placeholder: '请选择套餐',
+        treeCheckable: true,
+      },
+      options: [
+        {
+          title: 'Node1',
+          value: '0-0',
+          key: '0-0',
+          children: [
+            {
+              title: 'Child Node1',
+              value: '0-0-0',
+              key: '0-0-0',
+            },
+          ],
+        },
+        {
+          title: 'Node2',
+          value: '0-1',
+          key: '0-1',
+          children: [
+            {
+              title: 'Child Node3',
+              value: '0-1-0',
+              key: '0-1-0',
+            },
+            {
+              title: 'Child Node4',
+              value: '0-1-1',
+              key: '0-1-1',
+            }
+          ],
+        },
+      ]
+    },
     //  enum ComTypes {
     //     "command" = "command",
     //     "rc-tree" = "rc-tree",
@@ -361,9 +406,11 @@ const Form = () => {
     //   }
 
     // enum ContainerTypes {
+    //   "Combobox" = "Combobox",
     //   "Popover" = "Popover",
     //   "Drawer" = "Drawer",
     //   "Dialog" = "Dialog",
+    //   "HoverCard" = "HoverCard",
     // }
     {
       label: "分类",
@@ -416,7 +463,7 @@ const Form = () => {
       fieldSetting: {
         className: fieldClassName,
       },
-      option: [
+      options: [
         { label: 'Y3', value: 'Y3' },
         { label: 'Y4', value: 'Y4' },
         { label: 'Y5', value: 'Y5' },
@@ -562,6 +609,39 @@ const Form = () => {
               empty: '搜索内容为空的提示',
             },
             container: 'Dialog',
+            showClear: true,
+          }}
+        />
+        <RBaseCombobox
+          onFormChange={(params) => {
+            console.log('queryParams', params);
+          }}
+          ref={RBaseComboboxRef}
+          // value='resource'
+          item={{
+            options: [
+              {
+                label: '指南',
+                value: '指南',
+                separator: true, //分割线
+                children: [
+                  {
+                    value: 'shejiyuanze',
+                    label: '设计原则',
+                  },
+                ],
+              },
+              {
+                label: '资源',
+                value: 'resource',
+
+              },
+            ],
+            setting: {
+              placeholder: '请输入分类',
+              empty: '搜索内容为空的提示',
+            },
+            container: 'Combobox',
           }}
         />
         <RBaseDatePicker
@@ -577,6 +657,25 @@ const Form = () => {
             dataPickerType: "day",//day|month
           }}
         />
+        <RGeneralBasic
+          onFormChange={(params) => {
+            console.log('queryParams', params);
+          }}
+          item={{
+            type: 'a-select',
+            options: [
+              { label: '到家服务', value: 'home_service' },
+              { label: '医院陪护', value: 'hospital_care' },
+            ],
+            setting: {
+              placeholder: '请输入分类',
+              empty: '搜索内容为空的提示',
+              className: 'w-full',
+
+              // labelInValue: true, 
+            },
+          }}
+        ></RGeneralBasic>
       </div>
 
       <div className="w-1/2">
